@@ -1,0 +1,363 @@
+/* Reset and Variables */
+:root {
+  --bg-primary: #1a1d21;
+  --bg-secondary: #222529;
+  --text-primary: #d1d2d3;
+  --text-secondary: #8e8e8e;
+  --accent: #1164a3;
+  --border: #424242;
+  --hover: #27292c;
+  --status-online: #2eac6d;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Global styles */
+body {
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Layout */
+.container {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  height: 100vh;
+  max-width: 100%;
+  margin: 0;
+}
+
+/* Sidebar */
+.sidebar {
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border);
+  padding: 16px 0;
+  overflow-y: auto;
+}
+
+.workspace-header {
+  padding: 0 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.workspace-header h2 {
+  font-size: 18px;
+}
+
+.section-header {
+  padding: 0 16px;
+  margin: 16px 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.channel {
+  padding: 4px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.channel:hover {
+  background: var(--hover);
+}
+
+.channel.active {
+  background: var(--accent);
+}
+
+/* Main Content */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  min-width: 800px;
+  width: 100%;
+}
+
+.channel-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.channel-name {
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.channel-description {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+/* Message List */
+.message-list {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.message {
+  display: flex;
+  gap: 12px;
+  padding: 4px 0;
+  margin: 8px 0;
+}
+
+.avatar-container {
+  position: relative;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+}
+
+.user-status {
+  width: 10px;
+  height: 10px;
+  background: var(--status-online);
+  border-radius: 50%;
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  border: 2px solid var(--bg-primary);
+}
+
+.message-content {
+  flex: 1;
+}
+
+.message-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.username {
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.timestamp {
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+.message-text {
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.message-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.message-actions button {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.message-actions button:hover {
+  background: var(--hover);
+  color: var(--text-primary);
+}
+
+/* Input Area */
+.message-input {
+  border-top: 1px solid var(--border);
+  padding: 20px;
+  margin: 0 20px 20px;
+}
+
+.input-box {
+  min-height: 100px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.toolbar {
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  gap: 8px;
+}
+
+.toolbar button {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.toolbar button:hover {
+  background: var(--hover);
+  color: var(--text-primary);
+}
+
+.input-box textarea {
+  flex: 1;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  resize: none;
+  padding: 8px;
+  min-height: 80px;
+  font-size: 15px;
+  line-height: 1.5;
+  width: 100%;
+}
+
+.input-box textarea:focus {
+  outline: none;
+}
+
+.attachment-area {
+  border: 2px dashed var(--border);
+  border-radius: 4px;
+  padding: 20px;
+  text-align: center;
+  margin: 10px 0;
+  display: none;
+  color: var(--text-secondary);
+}
+
+.attachment-area.active {
+  display: block;
+}
+
+/* Toast Notification */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  padding: 12px 24px;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  border: 1px solid var(--border);
+}
+
+.toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.toast i {
+  color: var(--status-online);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* Add to your existing styles */
+.search-prompt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: var(--bg-primary);
+}
+
+.search-container {
+    background: var(--bg-secondary);
+    padding: 32px;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid var(--border);
+}
+
+.search-container h2 {
+    margin-bottom: 20px;
+    color: var(--text-primary);
+}
+
+#search-input {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 300px;
+    margin-bottom: 16px;
+}
+
+#search-input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+#search-button {
+    background: var(--accent);
+    color: var(--text-primary);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#search-button:hover {
+    background: #1a7fd1;
+} 

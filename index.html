@@ -3,228 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Let Me Slack That For You</title>
-    <style>
-        body {
-            font-family: Slack-Lato, Lato, appleLogo, sans-serif;
-            background-color: #1a1d21;
-            color: #d1d2d3;
-        }
-
-        .container {
-            max-width: 1200px;
-            width: 100%;
-        }
-
-        h1 {
-            color: #fff;
-            text-align: center;
-        }
-
-        .slack-window {
-            background-color: #222529;
-            border: 1px solid #424242;
-            display: grid;
-            grid-template-columns: 260px 1fr;
-            gap: 0;
-            padding: 0;
-            height: 600px;
-        }
-
-        .sidebar {
-            background-color: #19171d;
-            border-right: 1px solid #424242;
-            padding: 16px;
-        }
-
-        .sidebar-section {
-            margin-bottom: 24px;
-        }
-
-        .sidebar-header {
-            color: #fff;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .channel-item {
-            color: #ababad;
-            padding: 4px 8px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .channel-item:hover {
-            background-color: #27242c;
-        }
-
-        .main-content {
-            padding: 16px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .search-box {
-            background-color: #222529;
-            border: 1px solid #424242;
-            border-radius: 6px;
-            padding: 8px 12px;
-            width: calc(100% - 26px);
-            position: absolute;
-            bottom: 20px;
-            left: 16px;
-            color: #d1d2d3;
-        }
-
-        .search-box::placeholder {
-            color: #ababad;
-        }
-
-        .top-bar {
-            height: 40px;
-            border-bottom: 1px solid #424242;
-            display: flex;
-            align-items: center;
-            padding: 0 16px;
-            color: #fff;
-            font-weight: bold;
-        }
-
-        input {
-            background-color: #222529;
-            border: 1px solid #424242;
-            color: #d1d2d3;
-        }
-
-        input::placeholder {
-            color: #ababad;
-        }
-
-        .result-link {
-            color: #d1d2d3;
-        }
-
-        .result-link a {
-            color: #1264a3;
-            text-decoration: none;
-        }
-
-        .result-link a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <title>Slack-like Interface</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Let Me Ask Singularity For You</h1>
-        
-        <div class="input-group" id="inputSection">
-            <input type="text" id="searchInput" placeholder="What should I search for?">
-            <button onclick="generateAnimation()">Generate</button>
+    <div id="search-prompt" class="search-prompt">
+        <div class="search-container">
+            <h2>Enter your search query</h2>
+            <input type="text" id="search-input" placeholder="Type your search query...">
+            <button id="search-button">Search</button>
         </div>
-
-        <div class="slack-window" id="slackWindow" style="display: none;">
-            <div class="sidebar">
-                <div class="sidebar-section">
-                    <div class="sidebar-header">Channels</div>
-                    <div class="channel-item"># general</div>
-                    <div class="channel-item"># random</div>
-                    <div class="channel-item"># ask-singularity</div>
-                    <div class="channel-item"># help</div>
-                </div>
-                <div class="sidebar-section">
-                    <div class="sidebar-header">Direct Messages</div>
-                    <div class="channel-item">🟢 Slackbot</div>
-                    <div class="channel-item">⭘ John Doe</div>
-                    <div class="channel-item">⭘ Jane Smith</div>
-                </div>
-            </div>
-            <div class="main-content">
-                <div class="top-bar"># general</div>
-                <div class="search-box" id="searchBox"></div>
-                <div class="cursor" id="cursor"></div>
-            </div>
-        </div>
-
-        <div class="result-link" id="resultLink"></div>
     </div>
 
-    <script>
-        function generateAnimation() {
-            const searchText = document.getElementById('searchInput').value;
-            if (!searchText) return;
-
-            const cursor = document.getElementById('cursor');
-            const searchBox = document.getElementById('searchBox');
-            const channelItems = document.querySelectorAll('.channel-item');
-            const topBar = document.querySelector('.top-bar');
-            const askSingularityChannel = Array.from(channelItems).find(item => item.textContent === '# ask-singularity');
+    <div id="slack-interface" class="container" style="display: none;">
+        <div class="container">
+            <div class="sidebar">
+                <div class="sidebar-section">
+                    <div class="workspace-header">
+                        <h2>Adobe</h2>
+                        <button class="new-message">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="section-header">
+                        <i class="fas fa-chevron-down"></i>
+                        Channels
+                    </div>
+                    
+                    <div class="channel active">
+                        <i class="fas fa-hashtag"></i>
+                        ask-singularity
+                    </div>
+                    <div class="channel">
+                        <i class="fas fa-hashtag"></i>
+                        ask-tigre
+                    </div>
+                </div>
+            </div>
             
-            // Show cursor and start animation
-            cursor.style.display = 'block';
-            cursor.style.left = '50%';
-            cursor.style.top = '50%';
+            <div class="main-content">
+                <div class="channel-header">
+                    <div class="channel-name">
+                        <i class="fas fa-hashtag"></i>
+                        ask-singularity
+                    </div>
+                    <div class="channel-description">
+                        Topics and issues related to product and support processes...
+                    </div>
+                </div>
+                
+                <div class="message-list">
+                    <div class="message">
+                        <div class="avatar-container">
+                            <img class="avatar" src="https://via.placeholder.com/36" alt="User avatar">
+                            <div class="user-status"></div>
+                        </div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="username">Matt Winchester</span>
+                                <span class="timestamp">9:13 AM</span>
+                            </div>
+                            <div class="message-text">
+                                which cloud is the Adobe Region va7 in?
+                            </div>
+                            <div class="message-actions">
+                                <button class="reaction-button">
+                                    <i class="far fa-smile"></i>
+                                </button>
+                                <button class="thread-button">
+                                    <i class="fas fa-comment"></i>
+                                    1 reply
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="message-input">
+                    <div class="input-box">
+                        <div class="toolbar">
+                            <button title="Bold">
+                                <i class="fas fa-bold"></i>
+                            </button>
+                            <button title="Italic">
+                                <i class="fas fa-italic"></i>
+                            </button>
+                            <button title="Mention">
+                                <i class="fas fa-at"></i>
+                            </button>
+                            <button title="Emoji">
+                                <i class="far fa-smile"></i>
+                            </button>
+                            <button title="Attachment">
+                                <i class="fas fa-paperclip"></i>
+                            </button>
+                        </div>
+                        <textarea placeholder="Message #ask-singularity"></textarea>
+                        <div class="attachment-area">
+                            Drop files here or click to upload
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            // Move cursor to #ask-singularity channel
-            setTimeout(() => {
-                const rect = askSingularityChannel.getBoundingClientRect();
-                cursor.style.left = (rect.left + 10) + 'px';
-                cursor.style.top = (rect.top + 10) + 'px';
-            }, 1000);
-
-            // Click effect and update top bar
-            setTimeout(() => {
-                askSingularityChannel.style.backgroundColor = '#27242c';
-                topBar.textContent = '# ask-singularity';
-            }, 2000);
-
-            // Move cursor to search box
-            setTimeout(() => {
-                cursor.style.left = (searchBox.offsetLeft + 10) + 'px';
-                cursor.style.top = (searchBox.offsetTop + 10) + 'px';
-            }, 3000);
-
-            // Type the search text
-            setTimeout(() => {
-                let currentText = '';
-                const fullText = "@Singularity " + searchText;
-                const typeInterval = setInterval(() => {
-                    if (currentText.length < fullText.length) {
-                        currentText += fullText[currentText.length];
-                        searchBox.textContent = currentText;
-                    } else {
-                        clearInterval(typeInterval);
-                        // Animation complete
-                        setTimeout(() => {
-                            alert('Now you know how to search in Slack! 🎉');
-                        }, 1000);
-                    }
-                }, 200);
-            }, 4000);
-
-            // Generate shareable link
-            const shareUrl = window.location.href.split('?')[0] + '?q=' + encodeURIComponent(searchText);
-            document.getElementById('resultLink').innerHTML = `
-                <p>Share this link:</p>
-                <a href="${shareUrl}">${shareUrl}</a>
-            `;
-        }
-
-        // Check for search parameter on page load
-        window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const searchQuery = urlParams.get('q');
-            if (searchQuery) {
-                document.getElementById('searchInput').value = searchQuery;
-                document.getElementById('inputSection').style.display = 'none';
-                document.getElementById('resultLink').style.display = 'none';
-                document.getElementById('slackWindow').style.display = 'grid';
-                generateAnimation();
-            } else {
-                document.getElementById('slackWindow').style.display = 'none';
-            }
-        };
-    </script>
+    <script src="js/main.js"></script>
 </body>
 </html> 
