@@ -34,10 +34,59 @@ document.addEventListener('DOMContentLoaded', () => {
         searchPrompt.style.display = 'none';
         slackInterface.style.display = 'grid';
         
-        // Update the message text with the search query
-        const messageText = document.querySelector('.message-text');
-        if (messageText) {
-            messageText.textContent = decodeURIComponent(query);
+        // Create cursor element
+        const cursor = document.createElement('div');
+        cursor.className = 'cursor';
+        document.body.appendChild(cursor);
+
+        // Get textarea position
+        const textarea = document.querySelector('.input-box textarea');
+        const textareaRect = textarea.getBoundingClientRect();
+
+        // Prepare the full text with @Singularity prefix
+        const fullText = `@Singularity ${decodeURIComponent(query)}`;
+
+        // Animation sequence
+        setTimeout(() => {
+            // Show cursor
+            cursor.style.opacity = '1';
+            
+            // Start at center of viewport
+            cursor.style.top = '50%';
+            cursor.style.left = '50%';
+
+            // Move to textarea
+            setTimeout(() => {
+                cursor.style.top = `${textareaRect.top + 30}px`;
+                cursor.style.left = `${textareaRect.left + 30}px`;
+
+                // Click effect
+                setTimeout(() => {
+                    textarea.focus();
+                    cursor.style.transform = 'scale(0.9)';
+                    
+                    // Start typing
+                    setTimeout(() => {
+                        cursor.style.opacity = '0';
+                        typeText(textarea, fullText);
+                    }, 500);
+                }, 1000);
+            }, 500);
+        }, 500);
+
+        function typeText(element, text) {
+            let index = 0;
+            element.value = '';
+            
+            function type() {
+                if (index < text.length) {
+                    element.value += text.charAt(index);
+                    index++;
+                    setTimeout(type, 100); // Adjust typing speed here
+                }
+            }
+            
+            type();
         }
     }
 

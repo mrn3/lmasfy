@@ -242,6 +242,7 @@ body {
   font-size: 15px;
   line-height: 1.5;
   width: 100%;
+  caret-color: transparent;
 }
 
 .input-box textarea:focus {
@@ -326,6 +327,13 @@ body {
     border: 1px solid var(--border);
 }
 
+.search-container h1 {
+    margin-bottom: 32px;
+    color: var(--text-primary);
+    font-size: 32px;
+    font-weight: 700;
+}
+
 .search-container h2 {
     margin-bottom: 20px;
     color: var(--text-primary);
@@ -360,4 +368,26 @@ body {
 
 #search-button:hover {
     background: #1a7fd1;
+}
+
+/* Add to existing styles */
+.cursor {
+    width: 20px;
+    height: 20px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M7,2L17,12L7,22L7,2Z'/%3E%3C/svg%3E");
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: all 0.8s ease;
+    opacity: 0;
+}
+
+.typing-animation::after {
+    content: '|';
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 } 
